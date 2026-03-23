@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "InnerVerse",
+    "slug": "InnerVerse",
+    "version": "1.0.0",
+    "sdkVersion": "54.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}

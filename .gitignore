@@ -1,0 +1,31 @@
+# Python
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/venv/
+**/.venv/
+
+# Node / React Native / Expo
+**/node_modules/
+.expo/
+**/.expo/
+
+# Build outputs
+**/build/
+**/dist/
+
+# Environment files
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Logs / runtime files
+*.log
+**/*.log
+.pids
+
+# OS / IDE
+.DS_Store
+.vscode/*.code-workspace
