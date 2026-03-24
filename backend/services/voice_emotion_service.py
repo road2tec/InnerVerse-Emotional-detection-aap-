@@ -235,27 +235,28 @@ def _rule_classifier(
     scores: Dict[str, float] = {e: 0.0 for e in PHASE4_EMOTIONS}
 
     # ── Angry ─────────────────────────────────────────────────────────────────
-    if rms > 0.08:          scores["angry"] += 2.0
+    if rms > 0.1:           scores["angry"] += 2.0
     if zcr > 0.18:          scores["angry"] += 1.5
     if centroid > 3500:     scores["angry"] += 1.5
     if tempo > 150:         scores["angry"] += 1.0
 
     # ── Happy ─────────────────────────────────────────────────────────────────
-    if 0.04 < rms <= 0.08:  scores["happy"] += 2.0
-    if centroid > 2800:     scores["happy"] += 1.5
-    if tempo > 120:         scores["happy"] += 1.5
-    if pitch_variation > 15: scores["happy"] += 1.0
+    if 0.06 < rms <= 0.1:   scores["happy"] += 2.0
+    if centroid > 3000:     scores["happy"] += 1.5
+    if tempo > 130:         scores["happy"] += 1.5
+    if pitch_variation > 18: scores["happy"] += 1.0
 
     # ── Sad ───────────────────────────────────────────────────────────────────
-    if rms < 0.025:         scores["sad"] += 2.5
-    if zcr < 0.06:          scores["sad"] += 1.5
-    if centroid < 1500:     scores["sad"] += 1.5
-    if tempo < 90:          scores["sad"] += 1.0
+    # Relaxed thresholds for mobile (background noise increases RMS and ZCR)
+    if rms < 0.05:          scores["sad"] += 3.0
+    if zcr < 0.1:           scores["sad"] += 1.5
+    if centroid < 2500:     scores["sad"] += 1.5
+    if tempo < 110:         scores["sad"] += 1.0
 
     # ── Fear ──────────────────────────────────────────────────────────────────
-    if 0.025 < rms < 0.07:  scores["fear"] += 1.5
-    if zcr > 0.15:          scores["fear"] += 1.5
-    if pitch_variation > 20: scores["fear"] += 2.0
+    if 0.04 < rms < 0.08:   scores["fear"] += 1.0
+    if zcr > 0.12:          scores["fear"] += 1.5
+    if pitch_variation > 22: scores["fear"] += 2.0
     if tempo > 130:         scores["fear"] += 1.0
 
     # ── Neutral (baseline) ────────────────────────────────────────────────────

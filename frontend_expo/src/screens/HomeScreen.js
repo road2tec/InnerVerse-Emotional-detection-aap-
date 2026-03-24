@@ -5,7 +5,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import {
     View, Text, StyleSheet, TouchableOpacity, ScrollView,
-    StatusBar, Animated, RefreshControl
+    StatusBar, Platform, RefreshControl
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { getStoredUser } from '../services/authService';
@@ -30,8 +30,6 @@ export default function HomeScreen({ navigation }) {
     const [refreshing, setRefreshing] = useState(false);
     const [tip, setTip] = useState(WELLNESS_TIPS[0]);
 
-    const fadeAnim = new Animated.Value(0);
-
     const loadDashboard = async () => {
         try {
             const u = await getStoredUser();
@@ -53,14 +51,6 @@ export default function HomeScreen({ navigation }) {
         }, [])
     );
 
-    useEffect(() => {
-        Animated.timing(fadeAnim, {
-            toValue: 1,
-            duration: 800,
-            useNativeDriver: true,
-        }).start();
-    }, []);
-
     const onRefresh = async () => {
         setRefreshing(true);
         await loadDashboard();
@@ -77,7 +67,8 @@ export default function HomeScreen({ navigation }) {
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#E94560" />}
             >
                 {/* Header */}
-                <Animated.View style={[styles.header, { opacity: fadeAnim }]}>
+                <View style={styles.header}>
+                    <Text style={styles.appName}>InnerVerse</Text>
                     <Text style={styles.greeting}>
                         {user ? `Hello, ${user.name}! 👋` : 'Welcome 👋'}
                     </Text>
@@ -91,7 +82,7 @@ export default function HomeScreen({ navigation }) {
                             <Text style={styles.tipText}>{tip}</Text>
                         </View>
                     </View>
-                </Animated.View>
+                </View>
 
                 {/* Phase 10: Mood Analytics Chart */}
                 {user && weeklyTrend.length > 0 && (
@@ -160,6 +151,14 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
         marginBottom: 20,
+    },
+    appName: {
+        color: '#E94560',
+        fontSize: 34,
+        fontFamily: Platform.OS === 'ios' ? 'Snell Roundhand' : 'cursive',
+        fontWeight: 'bold',
+        marginBottom: 10,
+        textAlign: 'center',
     },
     greeting: { color: '#AAAAAA', fontSize: 16, marginBottom: 6 },
     title: {

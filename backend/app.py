@@ -99,7 +99,7 @@ async def health_check():
         # Test database connection
         from utils.db import get_async_db
         db = get_async_db()
-        await db.admin.command('ping')
+        await db.command('ping')
         db_status = "healthy"
     except Exception as e:
         logger.error(f"Database health check failed: {e}")

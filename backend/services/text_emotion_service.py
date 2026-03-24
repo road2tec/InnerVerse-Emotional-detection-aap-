@@ -62,11 +62,10 @@ _sklearn_load_error: Optional[str] = None
 # must be present in text for the rule to trigger.
 _PREDEFINED_CONTEXT_RULES: List[Dict] = [
     {
-        "name": "monday_traffic_frustration",
+        "name": "traffic_frustration",
         "emotion": "frustrated",
-        "strength": 0.86,
+        "strength": 0.95,
         "all_of": [
-            ["monday"],
             ["traffic", "traffic jam", "jam", "congestion", "commute", "delay", "delayed", "late"],
         ],
     },
@@ -76,16 +75,38 @@ _PREDEFINED_CONTEXT_RULES: List[Dict] = [
         "strength": 0.84,
         "all_of": [
             ["deadline", "submission", "exam", "presentation", "interview", "meeting"],
-            ["pressure", "too much", "overload", "no time", "can't handle", "cannot handle", "overwhelmed"],
         ],
     },
     {
         "name": "weekend_plan_excitement",
         "emotion": "excited",
-        "strength": 0.78,
+        "strength": 0.90,
         "all_of": [
-            ["friday", "weekend"],
             ["trip", "travel", "plan", "party", "outing", "vacation", "holiday"],
+        ],
+    },
+    {
+        "name": "loss_sadness",
+        "emotion": "sad",
+        "strength": 0.95,
+        "all_of": [
+            ["died", "passed away", "lost my", "funeral", "grief", "breakup", "broke up"],
+        ],
+    },
+    {
+        "name": "achievement_happiness",
+        "emotion": "happy",
+        "strength": 0.90,
+        "all_of": [
+            ["gift", "won", "prize", "achieved", "got the job", "promoted", "surprise"],
+        ],
+    },
+    {
+        "name": "betrayal_anger",
+        "emotion": "angry",
+        "strength": 0.95,
+        "all_of": [
+            ["cheated", "lied to me", "stole", "insulted", "disrespect"],
         ],
     },
 ]
