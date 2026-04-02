@@ -175,7 +175,7 @@ def _infer_deepface(img_bgr: np.ndarray) -> Optional[Dict]:
 
         dominant = result.get("dominant_emotion", "neutral").lower()
         raw_emotions: Dict[str, float] = {
-            k.lower(): round(v / 100.0, 4)
+            k.lower(): float(round(float(v) / 100.0, 4))
             for k, v in result.get("emotion", {}).items()
         }
 
@@ -371,9 +371,9 @@ def _remap_to_phase5(raw: Dict[str, float]) -> Dict[str, float]:
     out: Dict[str, float] = {e: 0.0 for e in PHASE5_EMOTIONS}
     for label, score in raw.items():
         mapped = _FER2013_TO_PHASE5.get(label.lower(), "neutral")
-        out[mapped] = round(out[mapped] + score, 6)
+        out[mapped] = float(round(out[mapped] + float(score), 6))
     total = sum(out.values()) or 1.0
-    return {k: round(v / total, 4) for k, v in out.items()}
+    return {k: float(round(v / total, 4)) for k, v in out.items()}
 
 
 def _error_response(reason: str) -> Dict:

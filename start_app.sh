@@ -97,7 +97,7 @@ source venv/bin/activate
 
 # Install/upgrade requirements
 print_status "Installing Python dependencies..."
-pip install -r requirements.txt --quiet
+venv/bin/python -m pip install -r requirements.txt --quiet
 
 # Check if .env file has required variables
 if [[ ! -f ".env" ]]; then
@@ -112,7 +112,7 @@ fi
 
 # Start backend in background
 print_status "Starting FastAPI backend server..."
-nohup python app.py > ../backend.log 2>&1 &
+nohup venv/bin/python app.py > ../backend.log 2>&1 &
 BACKEND_PID=$!
 
 # Wait for backend to start

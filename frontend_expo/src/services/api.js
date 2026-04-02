@@ -139,7 +139,7 @@ console.log('📊 Debug Mode:', process.env.EXPO_PUBLIC_DEBUG);
 
 const api = axios.create({
   baseURL: BASE_URL,
-  timeout: 30000,
+  timeout: 120000,
   headers: { 'Content-Type': 'application/json' },
 });
 

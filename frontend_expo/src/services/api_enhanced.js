@@ -145,7 +145,7 @@ const createAPIInstance = async () => {
 
   const api = axios.create({
     baseURL,
-    timeout: 15000, // Increased timeout
+    timeout: 120000, // Increased timeout for ML models
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'

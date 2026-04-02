@@ -136,12 +136,13 @@ def detect_emotion_from_image(image_bytes: bytes) -> Dict:
             if isinstance(result, list):
                 result = result[0]
             dominant = result["dominant_emotion"].lower()
-            emotions = {k.lower(): round(v / 100, 4) for k, v in result["emotion"].items()}
+            emotions = {k.lower(): float(round(v / 100, 4)) for k, v in result["emotion"].items()}
             # Map to our labels
             dominant = TEXT_EMOTION_MAP.get(dominant, dominant)
+            logger.info(f"DeepFace returned emotion: {dominant}")
             return {
-                "emotion": dominant,
-                "confidence": emotions.get(dominant, 0.7),
+                "emotion": str(dominant),
+                "confidence": float(emotions.get(dominant, 0.7)),
                 "all_emotions": emotions,
             }
         except ImportError:
